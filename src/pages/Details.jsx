@@ -5,6 +5,7 @@ import CardSkleton from "../components/CardSkleton";
 import { Card, CardContent } from "../components/ui/card";
 import StatusBadge from "../components/StatusBadge";
 import { Button, buttonVariants } from "../components/ui/button";
+import style from "./Details/Detailc.module.css"
 import {
   Dialog,
   DialogClose,
@@ -80,17 +81,18 @@ export default function Details() {
   if (error) {
     return <p>{error.message}</p>;
   }
-  console.log(invoice)
+  const invoiced = invoice.senderAddress
+  console.log(invoiced)
   return (
-    <div className="py-5">
+    <div className="py-5 flex flex-col gap-[24px]">
       <div className="base_container">
         <Card>
           <CardContent className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
+            <div className={`flex items-center gap-2 ${style.status_div}`}>
               <span>Status:</span>
               <StatusBadge status={invoice.status} />
             </div>
-            <div className="flex gap-3">
+            <div className={`flex gap-3 ${style.functional}`}>
               <Button onClick={() =>handleEdit( invoice)} variant="ghost">Edit</Button>
               <Dialog>
                 <DialogTrigger
@@ -128,22 +130,23 @@ export default function Details() {
           </CardContent>
         </Card>
       </div>
-        <div className="base_container">
+          
+        <div className="base_container p-0">
         <div>
-        <Card className="details_container">
-        <CardContent className="p-[40px] ">
+        <Card className="p-0">
+        <CardContent className="p-[30px] ">
           <div className="flex items-center-center justify-between mb-[21px]">
             <div>
               <h2>
                 <span className="text-[#888EB0]">#</span>
-                {invoice.clientAddress?.postcode}
+                {invoiced?.postcode}
               </h2>
               <h2 className="mt-[8px]">{invoice.items?.[0].name}</h2>
             </div>
-            <div>
+            <div className=""> 
               <h3>{invoice.senderAddress?.street}</h3>
               <h3>{invoice.senderAddress?.city}</h3>
-              <h3>{invoice.senderAddress?.postCode}</h3>
+              <h3>{invoice.senderAddress?.postcode}</h3>
               <h3>{invoice.senderAddress?.country}</h3>
             </div>
           </div>
@@ -205,14 +208,15 @@ export default function Details() {
     </tr>
   </thead>
   <tbody>
-    {invoice.items?.map((item) => (
+    {invoice.items?.map((item) => {
+      return(
       <tr key={item.id}>
         <td className="text-[11px] font-bold">{item.name}</td>
         <td className="text-[11px] font-bold">{item.quantity}</td>
         <td className="text-[11px] font-bold">£{item.price}</td>
         <td className="text-[11px] font-bold">£{item.quantity * item.price}</td>
-      </tr>
-    ))}
+      </tr>)}
+    )}
   </tbody>
 </table>
 
@@ -228,6 +232,48 @@ export default function Details() {
           </Card>
         </div>
         </div>
+
+        {/* sidebar mobile uchun */}
+      <Card  className={`${style.nav}`}>
+      <CardContent className="flex w-full justify-center gap-[8px]">
+              <Button className="py-[17px] px-[24px]" onClick={() =>handleEdit( invoice)} variant="ghost">Edit</Button>
+              <Dialog>
+                <DialogTrigger
+                  className={buttonVariants({ variant: "destructive" })}
+                >
+                  {deleteLoading ? "Loading" : "Delete"}
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Confirm Deletion</DialogTitle>
+                    <DialogDescription>
+                      Are you sure you want to delete invoice #
+                      {invoice.invoiceId}? This action cannot be undone.{" "}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="flex gap-3 justify-end">
+                    <DialogClose variant="ghost">Cancel</DialogClose>
+                    <Button
+                    className="py-[17px]"
+                      variant="destructive"
+                      onClick={() => handleDelete(invoice.id)}
+                    >
+                      Delate
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              {invoice.status === "pending" && (
+                <Button
+                className="py-[17px] px-[24px]"
+                  onClick={() => handleUpdate(invoice.id, { status: "paid" })}
+                >
+                  {updateLoading ? "Loading ..." : "Mark as Paid"}
+                </Button>
+              )}
+            </CardContent>
+      </Card>
+     
     </div>
   );
 }

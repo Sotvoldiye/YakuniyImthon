@@ -13,9 +13,9 @@ export default function ItemLIst({ info }) {
       : [
           {
             id: crypto.randomUUID(),
-            name: "Banner Design",
+            name: "",
             quantity: 1,
-            price: 156,
+            price: 0,
             get total() {
               return +this.price * +this.quantity;
             },
@@ -28,9 +28,9 @@ export default function ItemLIst({ info }) {
 
   const handleChange = (e, id) => {
     const changedItem = localItems.find((el) => {
-      return el.id === id;
+      return el.id == id;
     });
-    changedItem[e.target.name] = Number(e.target.value);
+    changedItem[e.target.name] = e.target.value;
     setLocalItems((prev) => {
       const mapped = prev.map((el) => {
         if (el.id === changedItem.id) {
@@ -43,7 +43,7 @@ export default function ItemLIst({ info }) {
     });
   };
 
-  const handleClick = (type, id) => {
+  function handleClick (type, id) {
     if (type === "add") {
       if (localItems.at(-1).name.trim() !== "") {
         setLocalItems((prev) => {
@@ -86,8 +86,8 @@ export default function ItemLIst({ info }) {
     </div>
   
     <ul className="flex flex-col gap-5 mb-5">
-      {localItems.map(({ name, quantity, price, total, id }) => (
-        <li className="flex items-center justify-between px-2" key={id}>
+      {localItems.map(({ name, quantity, price, total, id }, index) => {
+        return ( <li className="flex items-center justify-between px-2" key={index}>
           <Input
             onChange={(e) => handleChange(e, id)}
             defaultValue={name}
@@ -110,7 +110,7 @@ export default function ItemLIst({ info }) {
             type="number"
             name="price"
             placeholder="Price"
-            defaultValue={price}
+            defaultValue={parseFloat(price).toFixed(2)}
           />
           <span className="w-[100px] text-center">  
               {total.toFixed(2) }
@@ -124,8 +124,8 @@ export default function ItemLIst({ info }) {
           >
             <Trash2 />
           </Button>
-        </li>
-      ))}
+        </li>)
+      })}
     </ul>
   
     <Button

@@ -1,0 +1,28 @@
+.nav{
+    display: none;
+}
+
+@media (max-width:400px){
+    .status_div{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .functional{
+        display: none;
+    }
+    .nav {
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* boshqa elementlar ustida bo'lishi uchun */
+        padding: 10px 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        margin-bottom: -3px;
+    }
+    
+}

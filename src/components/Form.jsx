@@ -81,7 +81,6 @@ export default function Form({ info, setSheetOpen }) {
         updateInvoices(res)
         toast.success("succesfully edited ✔")
         setSheetOpen(false)
-        navigate("/")
       })
       .catch(({message}) => {
         toast.error(message)
@@ -94,7 +93,7 @@ export default function Form({ info, setSheetOpen }) {
    }
     },  [sending ? JSON.stringify(sending) : sending]);
 
-  return (
+    return (
     <form onSubmit={handleSubmit} className="p-4 pt-14">
       {/* Bill From */}
       <div className="mb-10">
@@ -259,7 +258,7 @@ export default function Form({ info, setSheetOpen }) {
           />
         </div>
       </div>
-      <ItemLIst info={info && items} />
+      <ItemLIst info={items} />
 
       {info ? (
         <div className="flex justify-end gap-5 mt-10">
