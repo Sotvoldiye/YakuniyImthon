@@ -9,10 +9,10 @@ export function queryGenerator(obj){
   let result = "";
   Object.entries(obj).forEach(([key, value]) => {
     if(value){
-      if(result.length){
+      if(result.length === 0){
         result += `${key}`
       }else{
-          result += `| ${key} `
+          result += `|${key} `
       }
     }
   })

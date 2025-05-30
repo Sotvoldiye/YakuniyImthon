@@ -192,27 +192,31 @@ export default function Details() {
               <h2>{invoice?.clientEmail}</h2>
             </div>
           </div>
-          <Card  className="p-0">
+          <Card  className="p-0 mt-[45px]">
             <CardContent  className="p-0">
-              <div>
-                {invoice.items?.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between"
-                  >
-                    <div>
-                      <h3 className="text-[11px] font-bold">{item.name}</h3>
-                    </div>
-                    <div className="flex gap-[100px]">
-                      <h3 className="text-[11px] font-bold">{item.quantity}</h3>
-                      <h3 className="text-[11px] font-bold">£{item.price}</h3>
-                      <h3 className="text-[11px] font-bold">
-                        £{item.quantity * item.price}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className="flex flex-col  px-[32px] ">
+              <table className="w-full text-left text-[11px] border-separate border-spacing-y-4 py-[15px]">
+  <thead>
+    <tr className="pb-4">
+      <th className="text-[11px] font-medium">Item Name</th>
+      <th className="text-[11px] font-medium">QTY</th>
+      <th className="text-[11px] font-medium">Price</th>
+      <th className="text-[11px] font-medium">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {invoice.items?.map((item) => (
+      <tr key={item.id}>
+        <td className="text-[11px] font-bold">{item.name}</td>
+        <td className="text-[11px] font-bold">{item.quantity}</td>
+        <td className="text-[11px] font-bold">£{item.price}</td>
+        <td className="text-[11px] font-bold">£{item.quantity * item.price}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+      </div>
 
           <div className="bg-[rgba(55,59,83,1)] flex items-center justify-between py-[24px] px-[24px] bottom-rad  rounded-br-[8px] rounded-bl-[8px]">
               <h3 className="text-[11px] font-normal">Amount Due</h3>
