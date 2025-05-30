@@ -10,6 +10,7 @@ import { useAppStore } from "../lib/zustand";
 import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import accImg from '../assets/Oval.svg'
 export default function ThemesTogle() {
   const { themes } = useAppStore();
   const [theme, setTehme] = useState(
@@ -64,7 +65,7 @@ export default function ThemesTogle() {
         <DropdownMenuContent className="w-56 z-1000 ml-4">
           <DropdownMenuLabel>Themes</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <div className="flex flex-col">
+          <div className="flex flex-col w-[100%]">
             {themes.map((el, index) => {
               return (
                 <Button
@@ -88,6 +89,10 @@ export default function ThemesTogle() {
       >
         {theme ? <Sun /> : <Moon />}
       </Button>
+      <div  className="m-0 p-0 border-t-2  w-[100%]">
+      <img src={accImg} alt="rasm" />
+
+      </div>
     </div>
   );
 }

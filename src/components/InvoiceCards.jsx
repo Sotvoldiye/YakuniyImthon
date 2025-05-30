@@ -15,8 +15,8 @@ export default function InvoiceCards() {
       .then((res) => {
         setInvoices(res);
       })
-      .catch((message) => {
-        setError(message);
+      .catch((erorr) => {
+        setError(erorr.message);
       })
       .finally(() => {
         setLoading(false);
@@ -28,7 +28,7 @@ export default function InvoiceCards() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error.message}</p>;
   }
 
   if(invoices.length === 0){
@@ -38,6 +38,7 @@ export default function InvoiceCards() {
   return (
     <div className="base_container flex flex-col gap-4">
       {invoices.map((el, index) => {
+        console.log(el)
         const { createdAt , clientName , total, status, id } = el;
         return (
           <MyCard

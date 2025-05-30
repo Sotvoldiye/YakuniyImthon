@@ -32,7 +32,7 @@ export default function Details() {
       .then((res) => {
         setInvoice(res);
       })
-      .catch(({ message }) => {
+      .catch((message ) => {
         setError(message);
       })
       .finally(() => {
@@ -42,7 +42,7 @@ export default function Details() {
 
   function handleDelete(id) {
     setDeleteLoading(true);
-    deleteById(id)
+    deleteById({id})
       .then(() => {
         navigate("/"); // <-- bu to‘g‘ri
       })
@@ -56,9 +56,10 @@ export default function Details() {
 
   function handleUpdate(id, data) {
     setUpdateLoading(true);
-    upDateById(id, data)
-      .then(() => {
+    upDateById({id, newData:data})
+      .then((res) => {
         updateInvoices(res);
+        navigate("/")
       })
       .catch((message) => {
         toast.error(message);
@@ -67,8 +68,7 @@ export default function Details() {
         setUpdateLoading(false);
       });
   }
-
-  function handleEdit(id, data){
+  function handleEdit(data){
     setSheetOpen()
     setEditedData(data)
   }
@@ -78,9 +78,9 @@ export default function Details() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p>{error.message}</p>;
   }
-  console.log(invoice);
+  console.log(invoice)
   return (
     <div className="py-5">
       <div className="base_container">
@@ -91,11 +91,10 @@ export default function Details() {
               <StatusBadge status={invoice.status} />
             </div>
             <div className="flex gap-3">
-              <Button onClick={() =>handleEdit(invoice.id, invoice)} variant="ghost">Edit</Button>
+              <Button onClick={() =>handleEdit( invoice)} variant="ghost">Edit</Button>
               <Dialog>
                 <DialogTrigger
                   className={buttonVariants({ variant: "destructive" })}
-                  disa
                 >
                   {deleteLoading ? "Loading" : "Delete"}
                 </DialogTrigger>
@@ -129,6 +128,102 @@ export default function Details() {
           </CardContent>
         </Card>
       </div>
+        <div className="base_container">
+        <div>
+        <Card className="details_container">
+        <CardContent className="p-[40px] ">
+          <div className="flex items-center-center justify-between mb-[21px]">
+            <div>
+              <h2>
+                <span className="text-[#888EB0]">#</span>
+                {invoice.clientAddress?.postcode}
+              </h2>
+              <h2 className="mt-[8px]">{invoice.items?.[0].name}</h2>
+            </div>
+            <div>
+              <h3>{invoice.senderAddress?.street}</h3>
+              <h3>{invoice.senderAddress?.city}</h3>
+              <h3>{invoice.senderAddress?.postCode}</h3>
+              <h3>{invoice.senderAddress?.country}</h3>
+            </div>
+          </div>
+          <div className="flex items-start justify-between ">
+            <div className="flex items-center gap-[65px]">
+              <div>
+                <div className="flex flex-col md:gap-[32px] justify-between items-start">
+                  <div>
+                    <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                      Invoice Date
+                    </h3>
+                    <h2 className="text-[15px] font-bold">
+                      {invoice?.createdAt}
+                    </h2>
+                  </div>
+                  <div>
+                    <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                      Payment Due
+                    </h3>
+                    <h2 className="text-[15px] font-bold">
+                      {invoice?.paymentDue}
+                    </h2>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 className="mb-[12px] text-[12px] font-normal">Bill To</h3>
+                <h2 className="text-[15px] font-bold mb-[8px]">
+                  {invoice?.clientName}
+                </h2>
+                <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                  {invoice?.clientAddress?.city}
+                </h3>
+                <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                  {invoice?.clientAddress?.postCode}
+                </h3>
+                <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                  {invoice?.senderAddress?.country}
+                </h3>
+              </div>
+            </div>
+            <div className="md:mr-[50px]">
+              <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
+                Sent to
+              </h3>
+              <h2>{invoice?.clientEmail}</h2>
+            </div>
+          </div>
+          <Card  className="p-0">
+            <CardContent  className="p-0">
+              <div>
+                {invoice.items?.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between mt-[12px]"
+                  >
+                    <div>
+                      <h3 className="text-[11px] font-bold">{item.name}</h3>
+                    </div>
+                    <div className="flex gap-[100px]">
+                      <h3 className="text-[11px] font-bold">{item.quantity}</h3>
+                      <h3 className="text-[11px] font-bold">£{item.price}</h3>
+                      <h3 className="text-[11px] font-bold">
+                        £{item.quantity * item.price}
+                      </h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+          <div className="bg-[rgba(55,59,83,1)] flex items-center justify-between py-[24px] px-[24px] bottom-rad  rounded-br-[8px] rounded-bl-[8px]">
+              <h3 className="text-[11px] font-normal">Amount Due</h3>
+              <h2 className="font-[700] text-[24px] ">£{invoice.total}</h2>
+            </div>
+            </CardContent>
+            </Card>
+          </CardContent>
+          </Card>
+        </div>
+        </div>
     </div>
   );
 }

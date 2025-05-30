@@ -5,14 +5,18 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export function queryGenerator(obj) {
+export function queryGenerator(obj){
   let result = "";
   Object.entries(obj).forEach(([key, value]) => {
-    if (value) {
-      result += result.length ? `| ${key}` : `${key}`;
+    if(value){
+      if(result.length){
+        result += `${key}`
+      }else{
+          result += `| ${key} `
+      }
     }
-  });
-  return result;
+  })
+  return result
 }
 
 export function prepareData(obj) {

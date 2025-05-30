@@ -41,8 +41,8 @@ function Header() {
     <header>
       <div className="base_container flex items-center justify-between py-[75px]">
         <div>
-          <h1>Invoices</h1>
-          <p>There are 7 total invoices</p>
+          <h1 className="font-[700] text-[32px]">Invoices</h1>
+          <p className="font-[400] text-[12px] text-[rgba(136,142,176,1)]">There are 7 total invoices</p>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -60,13 +60,14 @@ function Header() {
                   key={key}
                   className={`${buttonVariants({
                     variant: "ghost",
-                  })} justify-start capitalize flex items-center gap-2 cursor-pointer`}
+                  })} justify-start capitalize flex items-center gap-2 cursor-pointer p-0`}
                   htmlFor={key}
                 >
                   <Checkbox
                     id={key}
                     checked={value}
                     onCheckedChange={() => handleChange(key)}
+                    className="flex items-center justify-center"
                   />
                   {key}
                 </label>

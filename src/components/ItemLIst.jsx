@@ -14,10 +14,10 @@ export default function ItemLIst({ info }) {
           {
             id: crypto.randomUUID(),
             name: "Banner Design",
-            quantitiy: 1,
+            quantity: 1,
             price: 156,
             get total() {
-              return +this.price * +this.quantitiy;
+              return +this.price * +this.quantity;
             },
           },
         ]
@@ -30,7 +30,7 @@ export default function ItemLIst({ info }) {
     const changedItem = localItems.find((el) => {
       return el.id === id;
     });
-    changedItem[e.target.name] = e.target.value;
+    changedItem[e.target.name] = Number(e.target.value);
     setLocalItems((prev) => {
       const mapped = prev.map((el) => {
         if (el.id === changedItem.id) {
@@ -52,10 +52,10 @@ export default function ItemLIst({ info }) {
             {
               id,
               name: "",
-              quantitiy: 1,
+              quantity: 1,
               price: 0,
               get total() {
-                return this.price * this.quantitiy;
+                return this.price * this.quantity;
               },
             },
           ];
@@ -74,66 +74,70 @@ export default function ItemLIst({ info }) {
   };
 
   return (
-    <div>
-      <h3>Item List</h3>
-      <div>
-        <span>Item name</span>
-        <span>Qty</span>
-        <span>Price</span>
-        <span>Total</span>
-      </div>
-      <ul className="flex flex-col gap-5 mb-5">
-        {localItems.map(({ name, quantitiy, price, total, id }) => {
-          return (
-            <li className="flex items-center justify-between" key={id}>
-              <Input
-                onChange={(e) => handleChange(e, id)}
-                defaultValue={name}
-                className="w-[210px]"
-                name="name"
-                type="text"
-                placeholder="Item Name"
-              />
-              <Input
-                onChange={(e) => handleChange(e, id)}
-                defaultValue={quantitiy}
-                className="w-[100px]"
-                type="number"
-                name="quantity"
-                placeholder="Qty"
-              />
-              <Input
-                onChange={(e) => handleChange(e, id)}
-                defaultValue={price}
-                className="w-[100px]"
-                type="number"
-                name="price"
-                placeholder="Price"
-              />
-              <span>{total.toFixed(2)}</span>
-              <Button
-                type="button"
-                onClick={() => handleClick("delete", id)}
-                variant="destructive"
-                size="icon"
-              >
-                <Trash2 />
-              </Button>
-            </li>
-          );
-        })}
-        <Button
-          type="button"
-          onClick={() => {
-            handleClick("add", crypto.randomUUID());
-          }}
-          className="w-full"
-          variant="secondary"
-        >
-          <Plus />
-          Add New Item
-        </Button>
-      </ul>
+    <div className="flex flex-col">
+    <h3 className="mb-2">Item List</h3>
+  
+    <div className="flex items-center justify-between px-2">
+      <span className="w-[210px]">Item name</span>
+      <span className="w-[100px] text-start">Qty</span>
+      <span className="w-[100px] text-start">Price</span>
+      <span className="w-[100px] text-staer">Total</span>
+      <span className="w-[40px]"></span> 
     </div>
+  
+    <ul className="flex flex-col gap-5 mb-5">
+      {localItems.map(({ name, quantity, price, total, id }) => (
+        <li className="flex items-center justify-between px-2" key={id}>
+          <Input
+            onChange={(e) => handleChange(e, id)}
+            defaultValue={name}
+            className="w-[210px]"
+            name="name"
+            type="text"
+            placeholder="Item Name"
+          />
+          <Input
+            onChange={(e) => handleChange(e, id)}
+            defaultValue={quantity}
+            className="w-[100px]"
+            type="number"
+            name="quantity"
+            placeholder="Qty"
+          />
+          <Input
+            onChange={(e) => handleChange(e, id)}
+            className="w-[100px]"
+            type="number"
+            name="price"
+            placeholder="Price"
+            defaultValue={price}
+          />
+          <span className="w-[100px] text-center">  
+              {total.toFixed(2) }
+          </span>
+          <Button
+            type="button"
+            onClick={() => handleClick("delete", id)}
+            variant="destructive"
+            size="icon"
+            className="w-[40px]"
+          >
+            <Trash2 />
+          </Button>
+        </li>
+      ))}
+    </ul>
+  
+    <Button
+      type="button"
+      onClick={() => handleClick("add", crypto.randomUUID())}
+      className="w-full"
+      variant="secondary"
+    >
+      <Plus />
+      Add New Item
+    </Button>
+  </div>
+  
   );
 }

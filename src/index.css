@@ -64,3 +64,8 @@
 .base_container{
   @apply w-full max-w-[730px] mx-auto pr-5 pl-5 md:pl-20;
 }
+
+Button{
+  border-radius: 999px;
+  padding: 8px;
+}

@@ -16,7 +16,6 @@ import { prepareData } from "../lib/utils";
 import { useAppStore } from "../lib/zustand";
 import { addInvoice, upDateById } from "../request";
 import { toast } from "sonner";
-import { send } from "vite";
 import { useNavigate } from "react-router-dom";
 
 export default function Form({ info, setSheetOpen }) {
@@ -82,6 +81,7 @@ export default function Form({ info, setSheetOpen }) {
         updateInvoices(res)
         toast.success("succesfully edited ✔")
         setSheetOpen(false)
+        navigate("/")
       })
       .catch(({message}) => {
         toast.error(message)

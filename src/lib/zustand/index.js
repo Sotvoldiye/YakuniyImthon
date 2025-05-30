@@ -4,7 +4,7 @@ export const useAppStore = create((set) => {
   return {
     filter: "",
     invoices: [],
-    themes: ["default", "rose", "blue"],
+    themes: ["default", "rose", "blue", 'voilet'],
     items: [],
     sheetOpen: false,
     editedData: null,
