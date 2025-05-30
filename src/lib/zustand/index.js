@@ -20,7 +20,7 @@ export const useAppStore = create((set) => {
     },
     setInvoices(invoices){
       return set(() => {
-        return { invoices};
+        return {invoices};
       });
     },
     updateInvoices(newData){

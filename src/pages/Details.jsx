@@ -198,7 +198,7 @@ export default function Details() {
                 {invoice.items?.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between mt-[12px]"
+                    className="flex items-center justify-between"
                   >
                     <div>
                       <h3 className="text-[11px] font-bold">{item.name}</h3>
