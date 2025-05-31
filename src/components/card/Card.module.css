@@ -3,6 +3,18 @@
     gap:27px;
 }
 
+.mainCard{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+.cardBody{
+    display: flex;
+    width: 100%;
+}
+
 @media (max-width:400px){
 
     .cardHeader{
@@ -12,7 +24,9 @@
     }
 
     .cardBody{
+        width: 100%;
         padding: 10px;
+        display:grid;
     }
 
     .total{
@@ -24,6 +38,9 @@
         display: flex;
         text-align: end;
         flex-direction: column;
+        justify-content: end;
+        align-items: end;
+        padding: 0;
     }
 
     .link{

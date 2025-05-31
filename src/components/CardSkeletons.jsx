@@ -7,10 +7,10 @@ import {
   
   export default function CardSkeletons() {
     return (
-      <div className="p-6 space-y-6 base_container">
+      <div className="p-6 space-y-6 base_container  mt-2">
         {/* Top status and actions */}
         <Card>
-          <CardContent className="flex justify-between items-center py-6">
+          <CardContent className="flex justify-between items-center py-2">
             <div className="flex items-center gap-2">
               <Skeleton className="w-[60px] h-6 rounded" />
               <Skeleton className="w-[50px] h-6 rounded-full" />
@@ -60,7 +60,7 @@ import {
   
             {/* Items table */}
             <div className="mt-6 border rounded-md overflow-hidden">
-              <div className="grid grid-cols-4 items-center p-4 bg-gray-100">
+              <div className="grid grid-cols-4 items-center p-4 ">
                 <Skeleton className="h-4 w-full col-span-1" />
                 <Skeleton className="h-4 w-full col-span-1" />
                 <Skeleton className="h-4 w-full col-span-1" />
@@ -72,7 +72,8 @@ import {
                 <Skeleton className="h-4 w-full col-span-1" />
                 <Skeleton className="h-4 w-full col-span-1" />
               </div>
-              <div className="bg-gray-800 p-4 text-right text-white font-bold">
+              <div className="bg-gray-800 p-4  text-white font-bold flex justify-between items-center">
+                <Skeleton className="h-4 w-[100px] mr-auto" />
                 <Skeleton className="h-6 w-[100px] ml-auto" />
               </div>
             </div>
