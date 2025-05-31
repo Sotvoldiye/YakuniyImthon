@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import logoImage from "../assets/logo.svg";
 import { useAppStore } from "../lib/zustand";
 import Form from "./Form";
@@ -16,7 +17,9 @@ export default function Sidebar() {
   return (
     <>
      <div className="bg-[#373b53] flex items-center justify-between md:flex-col md:h-100vh md:fixed md:left-0 md:top-0 md:bottom-0 md:z-[999]">
+      <NavLink to="/">
       <img className="w-[72px]" src={logoImage} />
+      </NavLink>
     <div className="mr-5 md:mr-0 md:mb-5">
     <ThemesTogle/>
     </div>

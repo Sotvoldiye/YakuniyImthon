@@ -93,7 +93,6 @@ export default function Form({ info, setSheetOpen }) {
     }
    }
     },  [sending ? JSON.stringify(sending) : sending]);
-
     return (
     <form onSubmit={handleSubmit} className="p-4 pt-14">
       {/* Bill From */}
