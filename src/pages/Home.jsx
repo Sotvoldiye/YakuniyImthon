@@ -3,7 +3,7 @@ import InvoiceCards from "../components/InvoiceCards";
 
 export default function Home() {
   return (
-    <div>
+    <div className="pb-14">
       <Header />
       <InvoiceCards />
     </div>
