@@ -17,6 +17,7 @@ import { useAppStore } from "../lib/zustand";
 import { addInvoice, upDateById } from "../request";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import style from './sidebar/sidebar.module.css';
 
 export default function Form({ info, setSheetOpen }) {
   const { updateInvoices} =useAppStore()
@@ -109,8 +110,9 @@ export default function Form({ info, setSheetOpen }) {
               defaultValue={info && senderAddress.street}
             />
           </div>
-          <div className="flex justify-between gap-5">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className={`flex justify-between gap-5 ${style.sennderAdderData}`}>
+<div className={style.cityAndPostCode}>
+<div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="senderAddress-city">City</Label>
               <Input
                 type="text"
@@ -124,13 +126,14 @@ export default function Form({ info, setSheetOpen }) {
               <Label htmlFor="senderAddress-postcode">Post Code</Label>
               <Input
                 type="text"
-                id="senderAddress-postcode"
-                name="senderAddress-postcode"
+                id="senderAddress-postCode"
+                name="senderAddress-postCode"
                 placeholder="Post Code"
                 defaultValue={info && senderAddress.postCode}
               />
             </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
+</div>
+            <div className={`grid w-full max-w-sm items-center gap-1.5 ${style.country}`}>
               <Label htmlFor="senderAddress-country">Country</Label>
               <Input
                 type="text"
@@ -181,8 +184,9 @@ export default function Form({ info, setSheetOpen }) {
               defaultValue={info && clientAddress.street}
             />
           </div>
-          <div className="flex justify-between gap-5">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className={`flex justify-between gap-5 ${style.sennderAdderData}`}>
+<div className={style.cityAndPostCode}>
+<div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="clientAddress-city">City</Label>
               <Input
                 type="text"
@@ -202,6 +206,7 @@ export default function Form({ info, setSheetOpen }) {
                 defaultValue={info && clientAddress.postCode}
               />
             </div>
+</div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="clientAddress-country">Country</Label>
               <Input
@@ -217,10 +222,11 @@ export default function Form({ info, setSheetOpen }) {
       </div>
       {/* Date */}
       <div className="flex flex-col gap-5">
-        <div className="flex gap-10 items-end">
+        <div className={`flex gap-10 items-end ${style.block}`}>
           <div className="grid w-full max-w-full items-center gap-1.5">
             <Label htmlFor="createdAt">Invoice date</Label>
             <Input
+              className={`w-full appearance-none  ${style.calendar}`}
               type="date"
               id="createdAt"
               name="createdAt"
@@ -232,7 +238,7 @@ export default function Form({ info, setSheetOpen }) {
             name="paymentTerms"
             defaultValue={info && paymentTerms.toString()}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className={`w-[180px] ${style.select}`}>
               <SelectValue placeholder="Payment Terms" />
             </SelectTrigger>
             <SelectContent>

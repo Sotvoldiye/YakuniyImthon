@@ -24,5 +24,31 @@
         border-bottom-left-radius: 0;
         margin-bottom: -3px;
     }
+
+    .cartDescription{
+        margin-bottom: 25px;
+        padding: 15px;
+    }
+
+    .description{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .detailsData{
+        display: grid;
+    }
+
+    .talbeDetails{
+        padding: 0;
+    }
+
+    .tablePaddin{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     
+    .priceData{
+        padding:12px
+    }
 }

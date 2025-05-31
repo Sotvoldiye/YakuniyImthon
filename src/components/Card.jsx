@@ -9,6 +9,7 @@ import {
 import StatusBadge from "./StatusBadge";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import style from "./card/Card.module.css"
 
 export default function MyCard({
   createdAt = "Due 19 Aug 2021",
@@ -23,17 +24,21 @@ export default function MyCard({
       onClick={() => {
         navigate(`/${id}`);
       }}
-      className="border-2 border-transparent hover:border-blue-400 transition-colors"
-    >
+      className={`border-2 border-transparent hover:border-blue-400 transition-colors ${style.cardBody}`}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>#{id}</CardTitle>
-          <CardDescription>{createdAt}</CardDescription>
-          <span>{clientName}</span>
-          <span>{total}</span>
+         <div className={style.cardHeader}>
+         <CardTitle>#{id}</CardTitle>
+         <CardDescription>{createdAt}</CardDescription>
+         </div>
+        <div className={style.mainCard}>
+        <span>{clientName}</span>
+          <span  className={style.total}>{total}</span>
           <StatusBadge status={status} />
-          <ArrowRight className="text-[#7c5dfa]" />
+          <ArrowRight className={`text-[#7c5dfa] ${style.link}`} />
+
         </div>
+                </div>
       </CardHeader>
     </Card>
   );

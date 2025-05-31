@@ -4,9 +4,10 @@ import { Plus, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useAppStore } from "../lib/zustand";
+import style from "./sidebar/sidebar.module.css";
 
 export default function ItemLIst({ info }) {
-  const {setItems} = useAppStore()
+  const { setItems } = useAppStore();
   const [localItems, setLocalItems] = useState(
     info
       ? info
@@ -23,7 +24,7 @@ export default function ItemLIst({ info }) {
         ]
   );
   useEffect(() => {
-    setItems(localItems)
+    setItems(localItems);
   }, [JSON.stringify(localItems)]);
 
   const handleChange = (e, id) => {
@@ -43,7 +44,7 @@ export default function ItemLIst({ info }) {
     });
   };
 
-  function handleClick (type, id) {
+  function handleClick(type, id) {
     if (type === "add") {
       if (localItems.at(-1).name.trim() !== "") {
         setLocalItems((prev) => {
@@ -71,73 +72,85 @@ export default function ItemLIst({ info }) {
         setLocalItems(filtred);
       }
     }
-  };
+  }
 
   return (
     <div className="flex flex-col">
-    <h3 className="mb-2">Item List</h3>
-  
-    <div className="flex items-center justify-between px-2">
-      <span className="w-[210px]">Item name</span>
-      <span className="w-[100px] text-start">Qty</span>
-      <span className="w-[100px] text-start">Price</span>
-      <span className="w-[100px] text-staer">Total</span>
-      <span className="w-[40px]"></span> 
+      <h3 className="mb-2">Item List</h3>
+
+      <div className={`flex items-center gap-[20px] px-2 ${style.label}`}>
+        <span className="w-[210px]">Item name</span>
+        <di className="flex items-center  px-2">
+          <span className="w-[100px] text-start ">Qty</span>
+          <span className="w-[100px] text-start ml-[19px]">Price</span>
+          <span className="w-[100px] text-staer ml-[55px]">Total</span>
+          <span className="w-[40px]"></span>
+        </di>
+      </div>
+
+      <ul className="flex flex-col gap-5 mb-5">
+        {localItems.map(({ name, quantity, price, total, id }, index) => {
+          return (
+            <li
+              className={`flex gap-[24px]  items-center px-2 ${style.inputs}`}
+              key={index}
+            >
+              <label className="hidden" htmlFor="name">
+                Item Name
+              </label>
+              <Input
+                onChange={(e) => handleChange(e, id)}
+                defaultValue={name}
+                className="w-[210px]"
+                name="name"
+                type="text"
+                id="name"
+                placeholder="Item Name"
+              />
+              <div className={`flex items-center  gap-[24px] ${style.malumot}`}>
+                <Input
+                  onChange={(e) => handleChange(e, id)}
+                  defaultValue={quantity}
+                  className="w-[100px]"
+                  type="number"
+                  name="quantity"
+                  placeholder="Qty"
+                />
+                <Input
+                  onChange={(e) => handleChange(e, id)}
+                  className="w-[100px]"
+                  type="number"
+                  name="price"
+                  placeholder="Price"
+                  defaultValue={parseFloat(price).toFixed(2)}
+                />
+                <span className="w-[100px] text-center">
+                  {total.toFixed(2)}
+                </span>
+                <Button
+                  type="button"
+                  onClick={() => handleClick("delete", id)}
+                  variant="destructive"
+                  size="icon"
+                  className="w-[40px]"
+                >
+                  <Trash2 />
+                </Button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <Button
+        type="button"
+        onClick={() => handleClick("add", crypto.randomUUID())}
+        className="w-full"
+        variant="secondary"
+      >
+        <Plus />
+        Add New Item
+      </Button>
     </div>
-  
-    <ul className="flex flex-col gap-5 mb-5">
-      {localItems.map(({ name, quantity, price, total, id }, index) => {
-        return ( <li className="flex items-center justify-between px-2" key={index}>
-          <Input
-            onChange={(e) => handleChange(e, id)}
-            defaultValue={name}
-            className="w-[210px]"
-            name="name"
-            type="text"
-            placeholder="Item Name"
-          />
-          <Input
-            onChange={(e) => handleChange(e, id)}
-            defaultValue={quantity}
-            className="w-[100px]"
-            type="number"
-            name="quantity"
-            placeholder="Qty"
-          />
-          <Input
-            onChange={(e) => handleChange(e, id)}
-            className="w-[100px]"
-            type="number"
-            name="price"
-            placeholder="Price"
-            defaultValue={parseFloat(price).toFixed(2)}
-          />
-          <span className="w-[100px] text-center">  
-              {total.toFixed(2) }
-          </span>
-          <Button
-            type="button"
-            onClick={() => handleClick("delete", id)}
-            variant="destructive"
-            size="icon"
-            className="w-[40px]"
-          >
-            <Trash2 />
-          </Button>
-        </li>)
-      })}
-    </ul>
-  
-    <Button
-      type="button"
-      onClick={() => handleClick("add", crypto.randomUUID())}
-      className="w-full"
-      variant="secondary"
-    >
-      <Plus />
-      Add New Item
-    </Button>
-  </div>
-  
   );
 }

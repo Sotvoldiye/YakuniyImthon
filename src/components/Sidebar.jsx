@@ -2,7 +2,7 @@ import logoImage from "../assets/logo.svg";
 import { useAppStore } from "../lib/zustand";
 import Form from "./Form";
 import ThemesTogle from "./ThemesTogle";
-
+import style from "./sidebar/sidebar.module.css"
 import {
   Sheet,
   SheetContent,
@@ -22,7 +22,7 @@ export default function Sidebar() {
     </div>
     </div>
     <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetContent side="left" className="ml-[72px] min-w-[calc(80%-72px)] min-h[calc(100%-56px)] overflow-y-scroll">
+          <SheetContent side="left" className={`ml-[72px] min-w-[calc(80%-72px)] ${style.sidebar} min-h[calc(100%-56px)] overflow-y-scroll`}>
             <SheetHeader className="sticky top-0 w-full bg-white border-b">
               <SheetTitle>Are you absolutely sure?</SheetTitle>
             </SheetHeader>

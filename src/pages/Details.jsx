@@ -17,6 +17,7 @@ import {
 } from "../components/ui/dialog";
 import { toast } from "sonner";
 import { useAppStore } from "../lib/zustand";
+import CardSkletons from "../components/CardSkeletons";
 
 export default function Details() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function Details() {
     setDeleteLoading(true);
     deleteById({id})
       .then(() => {
-        navigate("/"); // <-- bu to‘g‘ri
+        navigate("/"); 
       })
       .catch((message) => {
         toast.error(message);
@@ -75,14 +76,14 @@ export default function Details() {
   }
 
   if (loading) {
-    return <CardSkleton />;
+    return <CardSkletons/>;
   }
 
   if (error) {
     return <p>{error.message}</p>;
   }
+  console.log(invoice)
   const invoiced = invoice.senderAddress
-  console.log(invoiced)
   return (
     <div className="py-5 flex flex-col gap-[24px]">
       <div className="base_container">
@@ -134,23 +135,23 @@ export default function Details() {
         <div className="base_container p-0">
         <div>
         <Card className="p-0">
-        <CardContent className="p-[30px] ">
-          <div className="flex items-center-center justify-between mb-[21px]">
+        <CardContent className={`p-[30px] ${style.cartDescription}`}>
+          <div className={`flex items-center-center justify-between mb-[21px] ${style.description}`}>
             <div>
               <h2>
                 <span className="text-[#888EB0]">#</span>
-                {invoiced?.postcode}
+                {invoiced?.postCode}
               </h2>
               <h2 className="mt-[8px]">{invoice.items?.[0].name}</h2>
             </div>
             <div className=""> 
               <h3>{invoice.senderAddress?.street}</h3>
               <h3>{invoice.senderAddress?.city}</h3>
-              <h3>{invoice.senderAddress?.postcode}</h3>
+              <h3>{invoice.senderAddress?.postCode}</h3>
               <h3>{invoice.senderAddress?.country}</h3>
             </div>
           </div>
-          <div className="flex items-start justify-between ">
+          <div className={`flex  items-start justify-between ${style.detailsData}`}>
             <div className="flex items-center gap-[65px]">
               <div>
                 <div className="flex flex-col md:gap-[32px] justify-between items-start">
@@ -167,7 +168,7 @@ export default function Details() {
                       Payment Due
                     </h3>
                     <h2 className="text-[15px] font-bold">
-                      {invoice?.paymentDue}
+                      {invoice?.paymentTerms}Days
                     </h2>
                   </div>
                 </div>
@@ -192,13 +193,13 @@ export default function Details() {
               <h3 className="mb-[12px] text=[#DFE3FA] text-[12px] font-normal">
                 Sent to
               </h3>
-              <h2>{invoice?.clientEmail}</h2>
+              <h2 className="font-bold">{invoice?.clientEmail}</h2>
             </div>
           </div>
           <Card  className="p-0 mt-[45px]">
             <CardContent  className="p-0">
-              <div className="flex flex-col  px-[32px] ">
-              <table className="w-full text-left text-[11px] border-separate border-spacing-y-4 py-[15px]">
+              <div className={`flex flex-col  px-[32px] ${style.tablePaddin}`}>
+              <table className={`w-full text-left text-[11px] border-separate border-spacing-y-4 py-[15px] ${style.talbeDetails}`}>
   <thead>
     <tr className="pb-4">
       <th className="text-[11px] font-medium">Item Name</th>
@@ -222,7 +223,7 @@ export default function Details() {
 
       </div>
 
-          <div className="bg-[rgba(55,59,83,1)] flex items-center justify-between py-[24px] px-[24px] bottom-rad  rounded-br-[8px] rounded-bl-[8px]">
+          <div className={`bg-[rgba(55,59,83,1)] flex items-center justify-between py-[24px] px-[24px] bottom-rad  rounded-br-[8px] rounded-bl-[8px] ${style.priceData}`}>
               <h3 className="text-[11px] font-normal">Amount Due</h3>
               <h2 className="font-[700] text-[24px] ">£{invoice.total}</h2>
             </div>

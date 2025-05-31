@@ -89,7 +89,7 @@ export default function ThemesTogle() {
       >
         {theme ? <Sun /> : <Moon />}
       </Button>
-      <div  className="m-0 p-0 border-t-2  w-[100%]">
+      <div  className="m-0 p-0  w-[100%]">
       <img src={accImg} alt="rasm" />
 
       </div>

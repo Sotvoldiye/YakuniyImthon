@@ -14,13 +14,12 @@ import { Checkbox } from "./ui/checkbox";
 import { queryGenerator } from "../lib/utils";
 import { useAppStore } from "../lib/zustand";
 import { IoIosArrowDown } from "react-icons/io";
-import { Label } from "@radix-ui/react-dropdown-menu";
-import Form from "./Form";
-
+import  style from "./header/header.module.css"
 
 function Header() {
   const { setSheetOpen} = useAppStore()
   const { setFilter } = useAppStore();
+  const {invoices} = useAppStore()
   const [items, setItems] = useState({
     draft: false,
     paid: false,
@@ -39,15 +38,17 @@ function Header() {
 
   return (
     <header>
-      <div className="base_container flex items-center justify-between py-[75px]">
+      <div className={`base_container flex items-center justify-between py-[75px] ${style.header}`}>
         <div>
-          <h1 className="font-[700] text-[32px]">Invoices</h1>
-          <p className="font-[400] text-[12px] text-[rgba(136,142,176,1)]">There are 7 total invoices</p>
+          <h1 className={`font-[700] text-[32px] ${style.title}`}>Invoices</h1>
+          <div className={`font-[400] text-[12px] text-[rgba(136,142,176,1)] ${style.invoiceHeader}`}>There are {invoices.length} total invoices</div>
+          <p className={`font-[400] text-[12px] text-[rgba(136,142,176,1)] ${style.invoices}`}>{invoices.length} invoices</p>
+
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="ml-auto mr-[40px] flex justify-center items-center gap-[16px] text-[12px] font-bold focus:outline-0">
-              <p> Filter by status</p>{" "}
+              <p> Filter </p>{" "}
               <IoIosArrowDown className="p-0 m-0 text-[rgba(124,93,250,1)] font-bold w-[12px]" />
             </button>
           </DropdownMenuTrigger>
